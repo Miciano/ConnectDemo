@@ -8,30 +8,43 @@
 
 import Foundation
 
-//protocol Requester {
-//    func createURLRequestWith(endPoint: String, method: Method, parameters: [String: Any]?) throws -> URLRequest
-//    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type) throws -> T where T: Decodable
-//}
-//
-//class MockedRequester: Requester {
-//    func createURLRequestWith(endPoint: String, method: Method, parameters: [String: Any]?) throws -> URLRequest {
-//        //Nada
-//    }
-//
-//    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type) throws -> T where T: Decodable {
-//        //Nada
-//    }
-//}
-//
-//class ConcreteRequester: Requester {
-//    //Tudo que o server faz
-//}
+protocol Requester {
+    func createURLRequestWith(endPoint: String, method: Method, parameters: [String: Any]?) throws -> URLRequest?
+    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type) throws -> T? where T: Decodable
+}
 
-//class LoginMiddleware {
-//    func login(requester: Requester) throws -> Login {
-//
-//    }
-//}
+class MockedRequester: Requester {
+    func createURLRequestWith(endPoint: String, method: Method, parameters: [String: Any]?) throws -> URLRequest? {
+        return nil
+    }
+
+    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type) throws -> T? where T: Decodable {
+        return nil
+    }
+}
+
+class ConcreteRequester: Requester {
+    func createURLRequestWith(endPoint: String, method: Method, parameters: [String: Any]?) throws -> URLRequest? {
+        return nil
+    }
+    
+    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type) throws -> T? where T: Decodable {
+        return nil
+    }
+}
+
+class LoginMiddleware {
+    
+    let requester: Requester
+    
+    init(requester: Requester) {
+        self.requester = requester
+    }
+    
+    func login() throws -> Login? {
+        return try self.requester.requestWith(endPoint: "login", method: .post, parameters: [:], type: Login.self)
+    }
+}
 
 protocol Endpoint {
     var path: String { get }

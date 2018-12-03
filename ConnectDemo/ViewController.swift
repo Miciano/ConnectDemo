@@ -10,14 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    #if TESTABLE
+    let requester = MockedRequester()
+    #elseif MOCK
+    let requester = MockedRequester()
+    #else
+    let requester = ConcreteRequester()
+    #endif
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let server = Server()
+        let loginMiddleware = LoginMiddleware(requester: self.requester)
         
         do{
-            let result = try server.login(mock: true)
+            let result = try loginMiddleware.login()
             print("===== \(result)")
         }
         catch {
