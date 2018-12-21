@@ -10,12 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    #if TESTABLE
-    let requester = MockedRequester()
-    #elseif MOCK
+    #if TESTABLE || MOCK
     let requester = MockedRequester()
     #else
-    let requester = ConcreteRequester()
+    let requester = ServerRequester()
     #endif
     
     override func viewDidLoad() {
@@ -25,7 +23,8 @@ class ViewController: UIViewController {
         let loginMiddleware = LoginMiddleware(requester: self.requester)
         
         do{
-            let result = try loginMiddleware.login()
+            let endpoint: API.Login  = .login(user: "Miciano")
+            let result = try loginMiddleware.login(endpoint: endpoint)
             print("===== \(result)")
         }
         catch {

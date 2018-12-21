@@ -9,7 +9,17 @@
 import Foundation
 
 struct Login: Codable {
-    let user: User
+    let login: String
+    let id: Int
+    let repos: Int
+    let followers: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case login
+        case id
+        case repos = "public_repos"
+        case followers
+    }
 }
 
 struct User: Codable {
