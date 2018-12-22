@@ -80,6 +80,7 @@
 				988ABFC72191160B008787D6 /* Utils */,
 				988ABFB721911566008787D6 /* Server */,
 				988ABFA52191154B008787D6 /* AppDelegate.swift */,
+				A3E0C53E21CD63D60012EEF9 /* Middleware */,
 				988ABFA72191154B008787D6 /* ViewController.swift */,
 				988ABFA92191154B008787D6 /* Main.storyboard */,
 				988ABFAC2191154D008787D6 /* Assets.xcassets */,
@@ -94,7 +95,6 @@
 			children = (
 				A3E0C54621CD68700012EEF9 /* Enum */,
 				A3E0C53F21CD63E10012EEF9 /* Requester */,
-				A3E0C53E21CD63D60012EEF9 /* Middleware */,
 				988ABFB821911588008787D6 /* Mock */,
 			);
 			path = Server;
@@ -127,6 +127,7 @@
 		A3E0C53E21CD63D60012EEF9 /* Middleware */ = {
 			isa = PBXGroup;
 			children = (
+				A3E0C54421CD67E50012EEF9 /* API.swift */,
 				A3E0C54021CD66930012EEF9 /* LoginMiddleware.swift */,
 			);
 			path = Middleware;
@@ -148,7 +149,6 @@
 				988ABFBB219115A9008787D6 /* Method.swift */,
 				988ABFCA21911658008787D6 /* Erros.swift */,
 				A3E0C54221CD67830012EEF9 /* EndPoint.swift */,
-				A3E0C54421CD67E50012EEF9 /* API.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -390,7 +390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				NEW_SETTING = MOCK;
+				MOCK = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miciano.ConnectDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -410,7 +410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				NEW_SETTING = PROD;
+				MOCK = 0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miciano.ConnectDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

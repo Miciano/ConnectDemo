@@ -8,5 +8,5 @@
 
 import Foundation
 
-let baseURL = "http://miciano"
+let baseURL = "https://api.github.com/"
 let errorTitle = "ConnectError"

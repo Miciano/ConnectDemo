@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    #if TESTABLE || MOCK
+    #if DEBUG
     let requester = MockedRequester()
     #else
     let requester = ServerRequester()
@@ -20,18 +20,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let loginMiddleware = LoginMiddleware(requester: self.requester)
-        
-        do{
-            let endpoint: API.Login  = .login(user: "Miciano")
-            let result = try loginMiddleware.login(endpoint: endpoint)
-            print("===== \(result)")
-        }
-        catch {
+        do {
+            try self.requester.requestWith(endPoint: "users/Miciano", method: .get, parameters: [:], type: Login.self) { (data, response, error) in
+                print("DATA = \(data) | RESPONSE = \(response) | ERROR = \(error)")
+            }
+        } catch {
             
         }
+        
     }
-
-
 }
-

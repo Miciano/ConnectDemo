@@ -9,6 +9,8 @@
 import Foundation
 
 class MockedRequester: Requester {
+    
+    
     let session: URLSession
     
     init(session: URLSession = .shared) {
@@ -34,31 +36,14 @@ class MockedRequester: Requester {
         return urlRequest
     }
     
-    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type) throws -> T? where T: Decodable {
+    func requestWith<T>(endPoint: String, method: Method, parameters: [String : Any]?, type: T.Type, completion: @escaping RequesterCompletion) throws {
         guard let request = try? self.createURLRequestWith(endPoint: endPoint, method: method, parameters: parameters) else {
             print("\(errorTitle): ERRO OF CREATE URL REQUEST")
             throw Errors.invalidRequest
         }
-
-        var dataRequest: Data?
-        var errorRequest: Error?
-
+        
         self.session.dataTask(with: request) { (data, response, error) in
-            dataRequest = data
-            errorRequest = error
+            completion(data, response, error)
         }.resume()
-
-        if let data = dataRequest {
-            let decoder = JSONDecoder()
-            return try decoder.decode(type, from: data)
-        }
-        
-        if let error = errorRequest {
-            print("\(errorTitle): \(error)")
-            throw error
-        }
-        
-        print("\(errorTitle): ERROR ON REQUEST")
-        throw Errors.serverError
     }
 }

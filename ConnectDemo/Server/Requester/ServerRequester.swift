@@ -10,7 +10,6 @@ import Foundation
 
 
 class ServerRequester: Requester {
-    
     let session: URLSession
 
     init(session: URLSession = .shared) {
@@ -20,6 +19,7 @@ class ServerRequester: Requester {
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String : Any]?) throws -> URLRequest {
         let requestEndPoint = "\(baseURL)\(endPoint)"
         
+        print("REQUEST ===== \(requestEndPoint)")
         guard let url = URL(string: requestEndPoint) else {
             print("\(errorTitle): INVALID ENDPOINT")
             throw Errors.invalidURL
@@ -37,31 +37,15 @@ class ServerRequester: Requester {
         return urlRequest
     }
     
-    func requestWith<T>(endPoint: String, method: Method, parameters: [String : Any]?, type: T.Type) throws -> T? where T : Decodable {
+    
+    func requestWith<T>(endPoint: String, method: Method, parameters: [String : Any]?, type: T.Type, completion: @escaping RequesterCompletion) throws {
         guard let request = try? self.createURLRequestWith(endPoint: endPoint, method: method, parameters: parameters) else {
             print("\(errorTitle): ERRO OF CREATE URL REQUEST")
             throw Errors.invalidRequest
         }
-
-        var dataRequest: Data?
-        var responseRequest: URLResponse?
-        var errorRequest: Error?
-
+        
         self.session.dataTask(with: request) { (data, response, error) in
-            dataRequest = data
-            responseRequest = response
-            errorRequest = error
+            completion(data, response, error)
         }.resume()
-
-        if let error = errorRequest {
-            throw error
-        } else if let httpResponse = responseRequest as? HTTPURLResponse, httpResponse.statusCode == 200, let data = dataRequest {
-            let decoder = JSONDecoder()
-
-            return try decoder.decode(type, from: data)
-        } else {
-            print("\(errorTitle): ERROR ON REQUEST")
-            throw Errors.serverError
-        }
     }
 }
