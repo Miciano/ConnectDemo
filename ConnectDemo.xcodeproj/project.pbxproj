@@ -20,9 +20,7 @@
 		A3E0C53721CD50510012EEF9 /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C53621CD50510012EEF9 /* Requester.swift */; };
 		A3E0C53921CD51220012EEF9 /* MockedRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C53821CD51220012EEF9 /* MockedRequester.swift */; };
 		A3E0C53B21CD54A80012EEF9 /* ServerRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C53A21CD54A80012EEF9 /* ServerRequester.swift */; };
-		A3E0C54121CD66930012EEF9 /* LoginMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C54021CD66930012EEF9 /* LoginMiddleware.swift */; };
 		A3E0C54321CD67830012EEF9 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C54221CD67830012EEF9 /* EndPoint.swift */; };
-		A3E0C54521CD67E50012EEF9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C54421CD67E50012EEF9 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,9 +39,7 @@
 		A3E0C53621CD50510012EEF9 /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 		A3E0C53821CD51220012EEF9 /* MockedRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedRequester.swift; sourceTree = "<group>"; };
 		A3E0C53A21CD54A80012EEF9 /* ServerRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRequester.swift; sourceTree = "<group>"; };
-		A3E0C54021CD66930012EEF9 /* LoginMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMiddleware.swift; sourceTree = "<group>"; };
 		A3E0C54221CD67830012EEF9 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
-		A3E0C54421CD67E50012EEF9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +76,6 @@
 				988ABFC72191160B008787D6 /* Utils */,
 				988ABFB721911566008787D6 /* Server */,
 				988ABFA52191154B008787D6 /* AppDelegate.swift */,
-				A3E0C53E21CD63D60012EEF9 /* Middleware */,
 				988ABFA72191154B008787D6 /* ViewController.swift */,
 				988ABFA92191154B008787D6 /* Main.storyboard */,
 				988ABFAC2191154D008787D6 /* Assets.xcassets */,
@@ -122,15 +117,6 @@
 				988ABFCD219116D1008787D6 /* Login.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		A3E0C53E21CD63D60012EEF9 /* Middleware */ = {
-			isa = PBXGroup;
-			children = (
-				A3E0C54421CD67E50012EEF9 /* API.swift */,
-				A3E0C54021CD66930012EEF9 /* LoginMiddleware.swift */,
-			);
-			path = Middleware;
 			sourceTree = "<group>";
 		};
 		A3E0C53F21CD63E10012EEF9 /* Requester */ = {
@@ -232,10 +218,8 @@
 				988ABFC921911616008787D6 /* Constants.swift in Sources */,
 				988ABFCE219116D1008787D6 /* Login.swift in Sources */,
 				988ABFCB21911658008787D6 /* Erros.swift in Sources */,
-				A3E0C54121CD66930012EEF9 /* LoginMiddleware.swift in Sources */,
 				A3E0C54321CD67830012EEF9 /* EndPoint.swift in Sources */,
 				A3E0C53721CD50510012EEF9 /* Requester.swift in Sources */,
-				A3E0C54521CD67E50012EEF9 /* API.swift in Sources */,
 				A3E0C53921CD51220012EEF9 /* MockedRequester.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

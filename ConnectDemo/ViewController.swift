@@ -21,12 +21,19 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         do {
-            try self.requester.requestWith(endPoint: "users/Miciano", method: .get, parameters: [:], type: Login.self) { (data, response, error) in
-                print("DATA = \(data) | RESPONSE = \(response) | ERROR = \(error)")
+            try self.requester.requestWith(endPoint: "users/Miciano", method: .get, parameters: nil) {[weak self] (data, response, error) in
+                guard let response = response as? HTTPURLResponse else { return }
+                self?.convertModel(data: data, statusCode: response.statusCode)
             }
-        } catch {
-            
-        }
-        
+        } catch {}
+    }
+    
+    public func convertModel(data: Data?, statusCode: Int) {
+        guard let data = data, statusCode == 200 else { return }
+        do {
+            let decoder = JSONDecoder()
+            let model = try decoder.decode(Login.self, from: data)
+            print(model)
+        } catch {}
     }
 }

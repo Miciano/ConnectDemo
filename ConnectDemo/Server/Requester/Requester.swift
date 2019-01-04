@@ -12,5 +12,5 @@ typealias RequesterCompletion = (Data?, URLResponse?, Error?)->Void
 
 protocol Requester {
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String: Any]?) throws -> URLRequest
-    func requestWith<T>(endPoint: String, method: Method, parameters: [String: Any]?, type: T.Type, completion: @escaping RequesterCompletion) throws
+    func requestWith(endPoint: String, method: Method, parameters: [String: Any]?, completion: @escaping RequesterCompletion) throws
 }

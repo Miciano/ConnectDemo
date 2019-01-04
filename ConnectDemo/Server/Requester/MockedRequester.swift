@@ -36,7 +36,7 @@ class MockedRequester: Requester {
         return urlRequest
     }
     
-    func requestWith<T>(endPoint: String, method: Method, parameters: [String : Any]?, type: T.Type, completion: @escaping RequesterCompletion) throws {
+    func requestWith(endPoint: String, method: Method, parameters: [String : Any]?, completion: @escaping RequesterCompletion) throws {
         guard let request = try? self.createURLRequestWith(endPoint: endPoint, method: method, parameters: parameters) else {
             print("\(errorTitle): ERRO OF CREATE URL REQUEST")
             throw Errors.invalidRequest
