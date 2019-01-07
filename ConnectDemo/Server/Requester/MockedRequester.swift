@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os
 
 class MockedRequester: Requester {
     
@@ -20,7 +21,7 @@ class MockedRequester: Requester {
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String : Any]?) throws -> URLRequest {
         let bundle = Bundle(for: MockedRequester.self)
         guard let url = bundle.url(forResource: "loginMock", withExtension: "json") else {
-            print("\(errorTitle): JSON MOCK NOT FIND")
+            os_log("%{public}@ JSON MOCK NOT FIND", log: .init(subsystem: "REQUESTER", category: "LOAD JSON FILE"), type: .error, errorTitle)
             throw Errors.invalidURL
         }
 
@@ -38,7 +39,7 @@ class MockedRequester: Requester {
     
     func requestWith(endPoint: String, method: Method, parameters: [String : Any]?, completion: @escaping RequesterCompletion) throws {
         guard let request = try? self.createURLRequestWith(endPoint: endPoint, method: method, parameters: parameters) else {
-            print("\(errorTitle): ERRO OF CREATE URL REQUEST")
+            os_log("%{public}@ ERRO OF CREATE URL REQUEST", log: .init(subsystem: "REQUESTER", category: "CREATE URL REQUEST"), type: .error, errorTitle)
             throw Errors.invalidRequest
         }
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 class ViewController: UIViewController {
 
@@ -19,6 +20,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        os_log("%{public}@ INVALID ENDPOINT", log: .init(subsystem: "REQUESTER", category: "CREATE URL REQUEST"), type: .error, errorTitle)
+        os_log("%{public}@ MICIANO", log: .init(subsystem: "teste", category: "teste"), type: .debug, errorTitle)
         
         do {
             try self.requester.requestWith(endPoint: "users/Miciano", method: .get, parameters: nil) {[weak self] (data, response, error) in

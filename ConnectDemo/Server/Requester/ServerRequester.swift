@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import os
 
 class ServerRequester: Requester {
     let session: URLSession
@@ -19,9 +19,8 @@ class ServerRequester: Requester {
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String : Any]?) throws -> URLRequest {
         let requestEndPoint = "\(baseURL)\(endPoint)"
         
-        print("REQUEST ===== \(requestEndPoint)")
         guard let url = URL(string: requestEndPoint) else {
-            print("\(errorTitle): INVALID ENDPOINT")
+            os_log("%{public}@ INVALID ENDPOINT", log: .init(subsystem: "REQUESTER", category: "CREATE URL REQUEST"), type: .error, errorTitle)
             throw Errors.invalidURL
         }
 
@@ -40,7 +39,7 @@ class ServerRequester: Requester {
     
     func requestWith(endPoint: String, method: Method, parameters: [String : Any]?, completion: @escaping RequesterCompletion) throws {
         guard let request = try? self.createURLRequestWith(endPoint: endPoint, method: method, parameters: parameters) else {
-            print("\(errorTitle): ERRO OF CREATE URL REQUEST")
+            os_log("%{public}@ ERRO OF CREATE URL REQUEST", log: .init(subsystem: "REQUESTER", category: "CREATE URL REQUEST"), type: .error, errorTitle)
             throw Errors.invalidRequest
         }
         
