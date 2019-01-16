@@ -9,4 +9,6 @@
 import Foundation
 
 let baseURL = "https://api.github.com/"
-let errorTitle = "ConnectError"
+let errorTitle = "ConnectError: "
+let debugTitle = "ConnectDebug: "
+let infoTitle = "ConnectInfo: "

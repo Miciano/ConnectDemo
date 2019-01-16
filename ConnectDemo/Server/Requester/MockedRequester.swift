@@ -13,6 +13,8 @@ class MockedRequester: Requester {
     
     
     let session: URLSession
+    private var nameFile: String?
+    private var extensionFile: String?
     
     init(session: URLSession = .shared) {
         self.session = session
@@ -20,7 +22,7 @@ class MockedRequester: Requester {
     
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String : Any]?) throws -> URLRequest {
         let bundle = Bundle(for: MockedRequester.self)
-        guard let url = bundle.url(forResource: "loginMock", withExtension: "json") else {
+        guard let url = bundle.url(forResource: nameFile, withExtension: extensionFile) else {
             os_log("%{public}@ JSON MOCK NOT FIND", log: .init(subsystem: "REQUESTER", category: "LOAD JSON FILE"), type: .error, errorTitle)
             throw Errors.invalidURL
         }
@@ -46,5 +48,10 @@ class MockedRequester: Requester {
         self.session.dataTask(with: request) { (data, response, error) in
             completion(data, response, error)
         }.resume()
+    }
+    
+    func setMockFile(nameFile: String, extensionFile: String) {
+        self.nameFile = nameFile
+        self.extensionFile = extensionFile
     }
 }
