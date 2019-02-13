@@ -9,7 +9,7 @@
 import Foundation
 import os
 
-class ServerRequester: Requester {
+class ServerRequester: NSObject, Requester {
     let session: URLSession
 
     init(session: URLSession = .shared) {
@@ -54,5 +54,16 @@ class ServerRequester: Requester {
             os_log("%{public}@ HAVE ANSWER", log: .init(subsystem: "REQUESTER", category: "SERVE RESPONSE"), type: .info, infoTitle)
             completion(data, response, error)
         }.resume()
+    }
+}
+
+extension ServerRequester: URLSessionDelegate {
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        guard let serverTrust = challenge.protectionSpace.serverTrust,
+            let certificate = SecTrustGetCertificateAtIndex(serverTrust, 0) else { return }
+        
+        let polices = NSMutableArray()
+        polices.add(SecPolicyCreateSSL(true, challenge.protectionSpace.host as CFString))
+        SecTrustSetPolicies(serverTrust, polices)
     }
 }
