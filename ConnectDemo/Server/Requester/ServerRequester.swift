@@ -65,5 +65,10 @@ extension ServerRequester: URLSessionDelegate {
         let polices = NSMutableArray()
         polices.add(SecPolicyCreateSSL(true, challenge.protectionSpace.host as CFString))
         SecTrustSetPolicies(serverTrust, polices)
+        
+        
+        guard var result: SecTrustResultType = SecTrustResultType(rawValue: 0) else { return }
+        SecTrustEvaluate(serverTrust, &result)
+        let isServerTRusted: Bool = (result == SecTrustResultType.unspecified || result == SecTrustResultType.proceed)
     }
 }
