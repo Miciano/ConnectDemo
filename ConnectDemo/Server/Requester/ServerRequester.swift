@@ -62,13 +62,33 @@ extension ServerRequester: URLSessionDelegate {
         guard let serverTrust = challenge.protectionSpace.serverTrust,
             let certificate = SecTrustGetCertificateAtIndex(serverTrust, 0) else { return }
         
+        //Aqui to falando que o host tem que ser https?
         let polices = NSMutableArray()
         polices.add(SecPolicyCreateSSL(true, challenge.protectionSpace.host as CFString))
         SecTrustSetPolicies(serverTrust, polices)
         
-        
+        //Não entendi nada disso aqui
         guard var result: SecTrustResultType = SecTrustResultType(rawValue: 0) else { return }
         SecTrustEvaluate(serverTrust, &result)
+        //Nem disso aqui
         let isServerTRusted: Bool = (result == SecTrustResultType.unspecified || result == SecTrustResultType.proceed)
+        
+        //Estou pegando o certificado do request, certo?
+        let remoteCertificateData:NSData =  SecCertificateCopyData(certificate)
+        //Pegando o certificado local, certo?
+        guard let pathToCertificate = Bundle.main.path(forResource: "github.com", ofType: "cer") else { return }
+        do {
+            //transformando em data e depois comparando se ta ok, certo?
+            let localCertificateData:NSData = try NSData(contentsOfFile: pathToCertificate)
+            if(isServerTRusted && remoteCertificateData.isEqual(to: localCertificateData as Data)){
+                let credential:URLCredential =  URLCredential(trust:serverTrust)
+                completionHandler(.useCredential,credential)
+            }
+            else{
+                completionHandler(.cancelAuthenticationChallenge,nil)
+            }
+        } catch {
+            print("Error == \(error.localizedDescription)")
+        }
     }
 }
