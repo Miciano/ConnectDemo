@@ -10,10 +10,18 @@ import Foundation
 import os
 
 class ServerRequester: NSObject, Requester {
-    let session: URLSession
+    private var session: URLSession
 
-    init(session: URLSession = .shared) {
+    init(session: URLSession = .shared, useSSL: Bool) {
         self.session = session
+        super.init()
+        if useSSL {
+            self.createSessionWithSecurity()
+        }
+    }
+    
+    private func createSessionWithSecurity() {
+        self.session = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: nil)
     }
     
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String : Any]?) throws -> URLRequest {
@@ -54,6 +62,8 @@ class ServerRequester: NSObject, Requester {
             os_log("%{public}@ HAVE ANSWER", log: .init(subsystem: "REQUESTER", category: "SERVE RESPONSE"), type: .info, infoTitle)
             completion(data, response, error)
         }.resume()
+        
+        
     }
 }
 
@@ -71,7 +81,7 @@ extension ServerRequester: URLSessionDelegate {
         guard var result: SecTrustResultType = SecTrustResultType(rawValue: 0) else { return }
         SecTrustEvaluate(serverTrust, &result)
         //Nem disso aqui
-        let isServerTRusted: Bool = (result == SecTrustResultType.unspecified || result == SecTrustResultType.proceed)
+        let isServerTrusted: Bool = (result == SecTrustResultType.unspecified || result == SecTrustResultType.proceed)
         
         //Estou pegando o certificado do request, certo?
         let remoteCertificateData:NSData =  SecCertificateCopyData(certificate)
@@ -80,7 +90,7 @@ extension ServerRequester: URLSessionDelegate {
         do {
             //transformando em data e depois comparando se ta ok, certo?
             let localCertificateData:NSData = try NSData(contentsOfFile: pathToCertificate)
-            if(isServerTRusted && remoteCertificateData.isEqual(to: localCertificateData as Data)){
+            if(isServerTrusted && remoteCertificateData.isEqual(to: localCertificateData as Data)){
                 let credential:URLCredential =  URLCredential(trust:serverTrust)
                 completionHandler(.useCredential,credential)
             }
@@ -88,7 +98,7 @@ extension ServerRequester: URLSessionDelegate {
                 completionHandler(.cancelAuthenticationChallenge,nil)
             }
         } catch {
-            print("Error == \(error.localizedDescription)")
+            completionHandler(.cancelAuthenticationChallenge,nil)
         }
     }
 }
