@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     #if DEBUG
     let requester = MockedRequester()
     #else
-    let requester = ServerRequester(useSSL: true)
+    let requester = ServerRequester(useSSL: true, useCache: true)
     #endif
     
     override func viewDidLoad() {

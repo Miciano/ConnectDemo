@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98104F5622276A0C00AF04DE /* github.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = 98104F5522276A0C00AF04DE /* github.com.cer */; };
 		988ABFA62191154B008787D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988ABFA52191154B008787D6 /* AppDelegate.swift */; };
 		988ABFA82191154B008787D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988ABFA72191154B008787D6 /* ViewController.swift */; };
 		988ABFAB2191154B008787D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 988ABFA92191154B008787D6 /* Main.storyboard */; };
@@ -17,7 +18,6 @@
 		988ABFC921911616008787D6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988ABFC821911616008787D6 /* Constants.swift */; };
 		988ABFCB21911658008787D6 /* Erros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988ABFCA21911658008787D6 /* Erros.swift */; };
 		988ABFCE219116D1008787D6 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988ABFCD219116D1008787D6 /* Login.swift */; };
-		98BCF70122237C380086896C /* github.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = 98BCF70022237C370086896C /* github.com.cer */; };
 		A3E0C53721CD50510012EEF9 /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C53621CD50510012EEF9 /* Requester.swift */; };
 		A3E0C53921CD51220012EEF9 /* MockedRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C53821CD51220012EEF9 /* MockedRequester.swift */; };
 		A3E0C53B21CD54A80012EEF9 /* ServerRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E0C53A21CD54A80012EEF9 /* ServerRequester.swift */; };
@@ -25,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		98104F5522276A0C00AF04DE /* github.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = github.com.cer; sourceTree = "<group>"; };
 		988ABFA22191154B008787D6 /* ConnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		988ABFA52191154B008787D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		988ABFA72191154B008787D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		988ABFC821911616008787D6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		988ABFCA21911658008787D6 /* Erros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Erros.swift; sourceTree = "<group>"; };
 		988ABFCD219116D1008787D6 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		98BCF70022237C370086896C /* github.com.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = github.com.cer; sourceTree = "<group>"; };
 		A3E0C53621CD50510012EEF9 /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 		A3E0C53821CD51220012EEF9 /* MockedRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedRequester.swift; sourceTree = "<group>"; };
 		A3E0C53A21CD54A80012EEF9 /* ServerRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRequester.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		A3E0C53F21CD63E10012EEF9 /* Requester */ = {
 			isa = PBXGroup;
 			children = (
-				98BCF70022237C370086896C /* github.com.cer */,
+				98104F5522276A0C00AF04DE /* github.com.cer */,
 				A3E0C53621CD50510012EEF9 /* Requester.swift */,
 				A3E0C53821CD51220012EEF9 /* MockedRequester.swift */,
 				A3E0C53A21CD54A80012EEF9 /* ServerRequester.swift */,
@@ -201,7 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				988ABFB02191154D008787D6 /* LaunchScreen.storyboard in Resources */,
-				98BCF70122237C380086896C /* github.com.cer in Resources */,
+				98104F5622276A0C00AF04DE /* github.com.cer in Resources */,
 				988ABFC6219115AF008787D6 /* loginMock.json in Resources */,
 				988ABFAD2191154D008787D6 /* Assets.xcassets in Resources */,
 				988ABFAB2191154B008787D6 /* Main.storyboard in Resources */,

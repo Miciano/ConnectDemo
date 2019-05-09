@@ -11,17 +11,24 @@ import os
 
 class ServerRequester: NSObject, Requester {
     private var session: URLSession
+    private var useCache: Bool = true
 
-    init(session: URLSession = .shared, useSSL: Bool) {
+    init(session: URLSession = .shared, useSSL: Bool, useCache: Bool = true) {
         self.session = session
         super.init()
+        
         if useSSL {
-            self.createSessionWithSecurity()
+            self.createSessionWithSecurity(useCache: useCache)
         }
     }
     
-    private func createSessionWithSecurity() {
-        self.session = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: nil)
+    private func createSessionWithSecurity(useCache: Bool) {
+        if !useCache {
+            self.session = URLSession(configuration: .ephemeral, delegate: self, delegateQueue: nil)
+            return
+        }
+        
+        self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
     }
     
     func createURLRequestWith(endPoint: String, method: Method, parameters: [String : Any]?) throws -> URLRequest {
@@ -35,6 +42,11 @@ class ServerRequester: NSObject, Requester {
         }
 
         var urlRequest = URLRequest(url: url)
+        
+        urlRequest.cachePolicy = .returnCacheDataElseLoad
+        if !useCache {
+            urlRequest.cachePolicy = .reloadIgnoringCacheData
+        }
         
         os_log("%{public}@ URL REQUEST CREATED", log: .init(subsystem: "REQUESTER", category: "CREATE URL REQUEST"), type: .info, infoTitle)
         
@@ -89,9 +101,11 @@ extension ServerRequester: URLSessionDelegate {
                 completionHandler(.useCredential,credential)
             }
             else{
+                os_log("%{public}@ CERTIFICATE SSL PINNING ERROR", log: .init(subsystem: "REQUESTER", category: "SERVE RESPONSE"), type: .error, errorTitle)
                 completionHandler(.cancelAuthenticationChallenge,nil)
             }
         } catch {
+            os_log("%{public}@ CERTIFICATE SSL PINNING ERROR", log: .init(subsystem: "REQUESTER", category: "SERVE RESPONSE"), type: .error, errorTitle)
             completionHandler(.cancelAuthenticationChallenge,nil)
         }
     }
